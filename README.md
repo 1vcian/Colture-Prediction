@@ -54,6 +54,7 @@ L'architettura dell'applicativo si divide in due componenti principali:
 - **Funzionalità**: Prende in input un'ortofoto di un appezzamento e restituisce la classificazione del tipo di coltivazione.
 - **Tipi di classificazione**:
   - Seminativo
+  - Coltivazioni di Riso
   - Arboreo
   - Uliveto
   - Pascolo
