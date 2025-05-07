@@ -91,7 +91,7 @@ L'architettura dell'applicativo si divide in due componenti principali:
 - **Eventi supportati**:
   - Click singolo per posizionare un punto positivo (area da includere)
   - Click con modificatore (es. Shift+Click) per posizionare un punto negativo (area da escludere)
-  - Drag per definire un bounding box
+  - _Nota: Nella versione iniziale sarà supportato solo l'input di punti come prompt_
 - **Controlli**:
   - Pulsanti per la selezione della modalità di interazione
   - Visualizzazione dei risultati di classificazione
@@ -123,19 +123,24 @@ L'architettura dell'applicativo si divide in due componenti principali:
 #### Framework e Linguaggi
 - Python 3.9+
 - Framework web: FastAPI/Flask
-- Gestione modelli: PyTorch 2.0+
+- Gestione modelli: Hugging Face Transformers con SafeTensor
+- Runtime di inferenza: PyTorch 2.0+ con supporto per accelerazione hardware
 
 #### Specifiche Modello di Classificazione
 - Architettura: EfficientNet-B3 o ResNet-50
 - Input: Immagine RGB ritagliata sull'area dell'appezzamento
 - Output: Vector di probabilità per ciascuna classe
 - Fine-tuning: Addestrato su dataset proprietario di immagini agricole
+- Framework: Hugging Face Transformers con formato SafeTensor
+- Quantizzazione: Supportata per l'inferenza ottimizzata
 
 #### Specifiche Modello di Segmentazione
 - Architettura: SAM Large fine-tuned
-- Input: Immagine RGB + coordinate prompt (punto o box)
+- Input: Immagine RGB + coordinate prompt (attualmente solo punti supportati)
 - Output: Maschera binaria + poligono vettoriale
 - Dimensioni supportate: Fino a 1024x1024 pixel per elaborazione
+- Framework: Hugging Face Transformers con formato SafeTensor
+- Formato modello: SafeTensor per maggiore sicurezza nell'esecuzione
 
 ### Client
 
@@ -163,10 +168,9 @@ L'architettura dell'applicativo si divide in due componenti principali:
 {
   "image_url": "string", // URL dell'ortofoto o identificativo WMS
   "bbox": [x1, y1, x2, y2], // Coordinate dell'area da analizzare
-  "prompt_type": "point|box", // Tipo di prompt
+  "prompt_type": "point", // Nella versione iniziale solo "point" è supportato
   "prompt_data": {
-    // Per punto: {x: float, y: float, is_positive: boolean}
-    // Per box: {x1: float, y1: float, x2: float, y2: float}
+    // Formato punto: {x: float, y: float, is_positive: boolean}
   }
 }
 ```
@@ -219,10 +223,9 @@ L'architettura dell'applicativo si divide in due componenti principali:
 {
   "image_url": "string", // URL dell'ortofoto o identificativo WMS
   "bbox": [x1, y1, x2, y2], // Coordinate dell'area da analizzare
-  "prompt_type": "point|box", // Tipo di prompt
+  "prompt_type": "point", // Nella versione iniziale solo "point" è supportato
   "prompt_data": {
-    // Per punto: {x: float, y: float, is_positive: boolean}
-    // Per box: {x1: float, y1: float, x2: float, y2: float}
+    // Formato punto: {x: float, y: float, is_positive: boolean}
   }
 }
 ```
@@ -274,9 +277,13 @@ L'architettura dell'applicativo si divide in due componenti principali:
    ```bash
    pip install -r requirements.txt
    ```
-2. Download dei modelli pre-addestrati:
+2. Installazione Hugging Face Transformers:
    ```bash
-   python scripts/download_models.py
+   pip install transformers safetensors
+   ```
+3. Download dei modelli pre-addestrati da Hugging Face Hub:
+   ```bash
+   python scripts/download_models_from_hub.py
    ```
 3. Configurazione server:
    ```bash
