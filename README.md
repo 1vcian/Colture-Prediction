@@ -32,19 +32,19 @@ L'architettura dell'applicativo si divide in due componenti principali:
 ┌────────────────────────────────────────┐      ┌───────────────────────────────────┐
 │              SERVER                    │      │             CLIENT                │
 │                                        │      │                                   │
-│  ┌────────────────┐  ┌───────────────┐ │      │  ┌────────────────────────────┐  │
-│  │                │  │               │ │      │  │                            │  │
-│  │   Modello di   │  │  Modello di   │ │      │  │    Interfaccia Web con     │  │
-│  │ Classificazione│  │ Segmentazione │ │      │  │    OpenLayers             │  │
-│  │                │  │ (SAM Large)   │ │      │  │                            │  │
-│  └────────────────┘  └───────────────┘ │      │  └────────────────────────────┘  │
+│  ┌────────────────┐  ┌───────────────┐ │      │  ┌────────────────────────────┐   │
+│  │                │  │               │ │      │  │                            │   │
+│  │   Modello di   │  │  Modello di   │ │      │  │    Interfaccia Web con     │   │
+│  │ Classificazione│  │ Segmentazione │ │      │  │    OpenLayers              │   │
+│  │                │  │ (SAM Large)   │ │      │  │                            │   │
+│  └────────────────┘  └───────────────┘ │      │  └────────────────────────────┘   │
 │                                        │      │                                   │
-│  ┌────────────────────────────────────┐│      │  ┌────────────────────────────┐  │
-│  │                                    ││      │  │                            │  │
-│  │      API REST per l'elaborazione   ││◄─────┼─►│   Gestione Eventi Input    │  │
-│  │      delle richieste client        ││      │  │   e Visualizzazione        │  │
-│  │                                    ││      │  │   Risultati                │  │
-│  └────────────────────────────────────┘│      │  └────────────────────────────┘  │
+│  ┌────────────────────────────────────┐│      │  ┌────────────────────────────┐   │
+│  │                                    ││      │  │                            │   │
+│  │      API REST per l'elaborazione   ││◄─────┼─►│   Gestione Eventi Input    │   │
+│  │      delle richieste client        ││      │  │   e Visualizzazione        │   │
+│  │                                    ││      │  │   Risultati                │   │
+│  └────────────────────────────────────┘│      │  └────────────────────────────┘   │
 └────────────────────────────────────────┘      └───────────────────────────────────┘
 ```
 
