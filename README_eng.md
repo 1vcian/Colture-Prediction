@@ -54,6 +54,7 @@ The application architecture is divided into two main components:
 - **Functionality**: Takes an orthophoto of a plot as input and returns the classification of the cultivation type.
 - **Classification types**:
   - Arable land
+  - Rice coltures
   - Arboreal
   - Olive grove
   - Pasture
